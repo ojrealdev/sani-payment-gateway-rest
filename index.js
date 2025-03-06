@@ -28,7 +28,6 @@ const generateBase64EncodedPass = () => {
     return base64.encode(utf8.encode(password));
 };
 
-// Function to get the access token
 const getAccessToken = async () => {
     try {
         const response = await axios.get(`${baseUrl}/oauth/v1/generate?grant_type=client_credentials`, {
@@ -46,7 +45,7 @@ app.post('/pay', async (req, res) => {
     const { amount, phoneNumber } = req.body;
 
     if (!phoneNumber || !amount) {
-        return res.status(400).json({ error: "Phone number and amount are required" });
+         return res.status(400).json({ error: "Phone number and amount are required" });
     }
 
     try {
@@ -79,8 +78,10 @@ app.post('/pay', async (req, res) => {
         console.log("STK Push request sent:", response.data);
         res.status(200).json({ message: "Payment request sent successfully!", response: response.data });
     } catch (error) {
-        console.error("Payment error:", error);
-        res.status(500).json({ error: "Payment processing failed", details: error.message });
+        console.error("Error processing payment request:", error.message);
+        console.error("Error  response:", error.response.data);
+        // console.error("Payment error:", error);
+        res.status(500).json({ error: "Payment processing failed", details: error.message, message: error.response.data.errorMessage });
     }
 });
 

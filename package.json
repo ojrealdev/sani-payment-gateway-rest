@@ -1,22 +1,28 @@
 {
   "name": "sani-payment-rest",
   "version": "1.0.0",
+  "description": "Payment API for Sani Payment Gateway",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
+    "start": "node index.js",
+    "postinstall": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "stephen ochieng",
+  "author": "Stephen Ochieng",
   "license": "ISC",
-  "description": "",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "axios": "^1.8.1",
     "base-64": "^1.0.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "micro-cors": "^0.1.1",
-    "nodemon": "^3.1.9",
     "utf8": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
