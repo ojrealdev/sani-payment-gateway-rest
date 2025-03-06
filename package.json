@@ -1,0 +1,22 @@
+{
+  "name": "sani-payment-rest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "stephen ochieng",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.8.1",
+    "base-64": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "micro-cors": "^0.1.1",
+    "nodemon": "^3.1.9",
+    "utf8": "^3.0.0"
+  }
+}
