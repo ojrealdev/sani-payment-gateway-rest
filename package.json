@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "postinstall": "yarn install",
+    "postinstall": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Stephen Ochieng",
