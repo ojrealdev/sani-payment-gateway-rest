@@ -5,7 +5,7 @@ import utf8 from "utf8";
 import cors from "cors";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
@@ -85,8 +85,31 @@ app.post('/pay', async (req, res) => {
     }
 });
 
-// Start the server
+app.post('/mpesa/callback', (req, res) => {
+    const callBackData = req.body;
+
+    if(!callBackData.Body.stkCallback) {
+        return res.status(400).send("Invalid M-Pesa callback")
+    }
+
+    const { MerchantRequestID, CheckoutRequestID, ResultCode, CallbackMetadata } = callbackData.Body.stkCallback;
+
+    if (ResultCode === 0) {
+        const amount = CallbackMetadata.Item.find(i => i.Name === "Amount")?.Value;
+        const receipt = CallbackMetadata.Item.find(i => i.Name === "MpesaReceiptNumber")?.Value;
+        const phone = CallbackMetadata.Item.find(i => i.Name === "PhoneNumber")?.Value;
+        const transactionDate = CallbackMetadata.Item.find(i => i.Name === "TransactionDate")?.Value;
+
+        console.log(`Payment received: ${amount} KES from ${phone}, Receipt: ${receipt}`);
+
+        // TODO: Update database (Mark payment as complete)
+    } else {
+        console.log(`STK Push failed: ${callbackData.Body.stkCallback.ResultDesc}`);
+    }
+
+    res.status(200).send("OK");
+})
+
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running on ${port}`);
 });
